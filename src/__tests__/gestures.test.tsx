@@ -2,11 +2,6 @@ import { Text } from 'react-native';
 import { render, screen } from '@testing-library/react-native';
 import { ToastSwipeHandler } from '../gestures';
 
-// NOTE: RNTL cannot simulate PanResponder responder events. Its event gate
-// calls onMoveShouldSetResponder() with no arguments, while the PanResponder
-// handlers here require a gestureState (they read gs.dx / gs.dy), so
-// responderEvent simulation throws. These tests therefore cover rendering
-// only; the gesture decision logic is exercised manually on device.
 describe('ToastSwipeHandler', () => {
   it('renders its children', async () => {
     await render(

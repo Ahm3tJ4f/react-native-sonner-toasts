@@ -93,9 +93,6 @@ function Button({ label, onPress }: { label: string; onPress: () => void }) {
 const OkIcon = <CheckCircle size={18} color={GREEN} weight="fill" />;
 const ErrIcon = <XCircle size={18} color={RED} weight="fill" />;
 
-// ---------------------------------------------------------------------------
-// Shared building blocks for the custom JSX toasts
-// ---------------------------------------------------------------------------
 
 function Avatar({
   initial,
@@ -155,7 +152,6 @@ function PillButton({
   );
 }
 
-// One animated equalizer bar (own component so the hook rules stay happy).
 function EqBar({ delayMs }: { delayMs: number }) {
   const h = useSharedValue(0.4);
   useEffect(() => {
@@ -204,8 +200,6 @@ function TypingDot({ delayMs }: { delayMs: number }) {
   return <Animated.View style={[styles.typingDot, style]} />;
 }
 
-// Live transfer card (upload / download) with speed and ETA, re-rendered on
-// every tick through the same toast id.
 function TransferCard({
   icon,
   title,
@@ -252,11 +246,7 @@ function TransferCard({
   );
 }
 
-// ---------------------------------------------------------------------------
-// Creative custom JSX toasts
-// ---------------------------------------------------------------------------
 
-// k8s terminal card: degraded → restarting → healthy, updated in place.
 type K8sState = 'degraded' | 'restarting' | 'healthy';
 
 function K8sToast({
@@ -277,17 +267,17 @@ function K8sToast({
           <View style={[styles.termDot, { backgroundColor: '#28C840' }]} />
         </View>
       </View>
-      <Text style={styles.termLine}>NAME                     READY   STATUS</Text>
+      <Text style={styles.termLine}>NAME READY STATUS</Text>
       <Text style={[styles.termLine, { color: '#3FB950' }]}>
-        sonner-api-7d8f9b-6k2qr   1/1     Running
+        sonner-api-7d8f9b-6k2qr 1/1 Running
       </Text>
       <Text style={[styles.termLine, { color: '#3FB950' }]}>
-        sonner-api-7d8f9b-8z1wm   1/1     Running
+        sonner-api-7d8f9b-8z1wm 1/1 Running
       </Text>
       {state === 'degraded' && (
         <>
           <Text style={[styles.termLine, { color: '#F85149' }]}>
-            sonner-api-7d8f9b-2pv4x   0/1     CrashLoopBackOff
+            sonner-api-7d8f9b-2pv4x 0/1 CrashLoopBackOff
           </Text>
           <View style={styles.termFooter}>
             <Warning size={14} color="#F85149" weight="fill" />
@@ -307,7 +297,7 @@ function K8sToast({
       {state === 'restarting' && (
         <>
           <Text style={[styles.termLine, { color: '#D29922' }]}>
-            sonner-api-7d8f9b-2pv4x   0/1     Terminating
+            sonner-api-7d8f9b-2pv4x 0/1 Terminating
           </Text>
           <View style={styles.termFooter}>
             <AnimatedSpinner size={14} color="#D29922" />
@@ -320,7 +310,7 @@ function K8sToast({
       {state === 'healthy' && (
         <>
           <Text style={[styles.termLine, { color: '#3FB950' }]}>
-            sonner-api-7d8f9b-2pv4x   1/1     Running
+            sonner-api-7d8f9b-2pv4x 1/1 Running
           </Text>
           <View style={styles.termFooter}>
             <CheckCircle size={14} color="#3FB950" weight="fill" />
@@ -334,7 +324,6 @@ function K8sToast({
   );
 }
 
-// CI pipeline card: stages light up one by one via id updates.
 const CI_STAGES = ['Lint', 'Test', 'Build', 'Deploy'];
 
 function CiToast({ stage }: { stage: number }) {
@@ -385,8 +374,6 @@ function CiToast({ stage }: { stage: number }) {
   );
 }
 
-// Now playing card with animated equalizer and a play / pause toggle that
-// re-renders the same toast.
 function NowPlayingToast({
   playing,
   onToggle,
@@ -428,11 +415,10 @@ function NowPlayingToast({
   );
 }
 
-// Crypto ticker with a static sparkline.
 function CryptoTickerToast() {
   const bars = [
-    18, 26, 14, 30, 22, 34, 26, 40, 30, 46, 36, 52, 42, 58, 48, 44, 62, 50,
-    56, 64,
+    18, 26, 14, 30, 22, 34, 26, 40, 30, 46, 36, 52, 42, 58, 48, 44, 62, 50, 56,
+    64,
   ];
   return (
     <View style={styles.cryptoCard}>
@@ -472,7 +458,6 @@ function CryptoTickerToast() {
   );
 }
 
-// Live BJJ match score card.
 function LiveMatchToast() {
   return (
     <View style={styles.matchCard}>
@@ -510,7 +495,6 @@ function LiveMatchToast() {
   );
 }
 
-// Meeting reminder with a live countdown.
 function MeetingToast({
   onJoin,
   onSnooze,
@@ -558,7 +542,6 @@ function MeetingToast({
   );
 }
 
-// Delivery rider ETA card.
 function DeliveryToast() {
   return (
     <View style={styles.deliveryCard}>
@@ -593,7 +576,6 @@ function DeliveryToast() {
   );
 }
 
-// Smart home garage door with a toggle that updates the toast in place.
 type GarageState = 'closed' | 'opening' | 'open';
 
 const GARAGE_STATUS: Record<GarageState, { text: string; color: string }> = {
@@ -651,7 +633,6 @@ function GarageToast({
   );
 }
 
-// Typing indicator with animated dots.
 function TypingToast() {
   return (
     <View style={styles.typingCard}>
@@ -668,7 +649,6 @@ function TypingToast() {
   );
 }
 
-// AirDrop-style incoming file transfer.
 function AirdropToast({
   onAccept,
   onDecline,
@@ -704,7 +684,6 @@ function AirdropToast({
   );
 }
 
-// Severe weather alert, dark blue card.
 function WeatherToast() {
   return (
     <View style={styles.weatherCard}>
@@ -735,7 +714,6 @@ function WeatherToast() {
   );
 }
 
-// git push output in a terminal card.
 function GitPushToast() {
   return (
     <View style={styles.terminalCard}>
@@ -762,7 +740,6 @@ function GitPushToast() {
   );
 }
 
-// Coupon ticket with a dashed divider.
 function CouponToast() {
   return (
     <View style={styles.couponCard}>
@@ -793,9 +770,6 @@ function CouponToast() {
   );
 }
 
-// ---------------------------------------------------------------------------
-// Runners
-// ---------------------------------------------------------------------------
 
 const showK8s = () => {
   let id: number;
@@ -824,15 +798,18 @@ const showCi = () => {
     dismissible: false,
   });
   CI_STAGES.forEach((_, i) => {
-    setTimeout(() => {
-      const last = i === CI_STAGES.length - 1;
-      toast.custom(
-        <CiToast stage={last ? CI_STAGES.length : i + 1} />,
-        last
-          ? { id, duration: 7000, dismissible: true }
-          : { id, duration: Infinity }
-      );
-    }, (i + 1) * 900);
+    setTimeout(
+      () => {
+        const last = i === CI_STAGES.length - 1;
+        toast.custom(
+          <CiToast stage={last ? CI_STAGES.length : i + 1} />,
+          last
+            ? { id, duration: 7000, dismissible: true }
+            : { id, duration: Infinity }
+        );
+      },
+      (i + 1) * 900
+    );
   });
 };
 
@@ -935,14 +912,13 @@ const showAirdrop = () => {
   );
 };
 
-// Upload with a live progress bar, speed and ETA. ~40% of runs fail partway,
-// which converts the toast into an error with a retry action.
 const runUpload = () => {
   const id = 9008;
   const startedAt = Date.now();
   const totalMs = 3500;
   const TOTAL_MB = 128;
-  const failAt = Math.random() < 0.4 ? 45 + Math.floor(Math.random() * 35) : null;
+  const failAt =
+    Math.random() < 0.4 ? 45 + Math.floor(Math.random() * 35) : null;
 
   toast.custom(
     <TransferCard
@@ -960,8 +936,6 @@ const runUpload = () => {
 
     if (failAt !== null && pct >= failAt) {
       clearInterval(timer);
-      // toast.custom can't be converted to a normal toast in place (the jsx
-      // persists), so dismiss and replace with a fresh error toast.
       toast.dismiss(id);
       toast('Upload failed', {
         icon: ErrIcon,
@@ -1007,7 +981,6 @@ const runUpload = () => {
   }, 120);
 };
 
-// Download that always succeeds. Same pattern as the upload, no failure path.
 const runDownload = () => {
   const id = 9009;
   const startedAt = Date.now();
@@ -1053,7 +1026,6 @@ const runDownload = () => {
   }, 120);
 };
 
-// Minimal pill, centered via the toastContainer style.
 const showCommandPill = () => {
   toast.custom(
     <View style={styles.commandPill}>
@@ -1074,10 +1046,7 @@ export default function App() {
 
 function AppScreen() {
   return (
-    <SafeAreaView
-      edges={['top', 'bottom']}
-      style={styles.root}
-    >
+    <SafeAreaView edges={['top', 'bottom']} style={styles.root}>
       <ScrollView contentContainerStyle={styles.content}>
         <Button label="Dismiss all toasts" onPress={() => toast.dismiss()} />
 
@@ -1095,9 +1064,7 @@ function AppScreen() {
         />
         <Button
           label="Live BJJ match score"
-          onPress={() =>
-            toast.custom(<LiveMatchToast />, { duration: 10000 })
-          }
+          onPress={() => toast.custom(<LiveMatchToast />, { duration: 10000 })}
         />
         <Button label="Meeting countdown (live)" onPress={showMeeting} />
         <Button
@@ -1126,13 +1093,10 @@ function AppScreen() {
           label="File upload (progress + speed + ETA)"
           onPress={runUpload}
         />
-        <Button
-          label="Download for offline (progress)"
-          onPress={runDownload}
-        />
+        <Button label="Download for offline (progress)" onPress={runDownload} />
         <Button label="Command copied (pill)" onPress={showCommandPill} />
       </ScrollView>
-      <Toaster />
+      <Toaster position="top" />
     </SafeAreaView>
   );
 }
@@ -1225,7 +1189,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: BLUE,
   },
-  // Transfer card (upload / download)
   transferCard: {
     padding: 16,
     gap: 12,
@@ -1269,7 +1232,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#A1A1AA',
   },
-  // Terminal (k8s / git / CI)
   terminalCard: {
     backgroundColor: '#0D1117',
     borderRadius: 10,
@@ -1363,7 +1325,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
-  // Now playing
   mediaCard: {
     padding: 16,
     gap: 10,
@@ -1416,7 +1377,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Crypto
   cryptoCard: {
     padding: 16,
     gap: 12,
@@ -1483,7 +1443,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#A1A1AA',
   },
-  // Live match
   matchCard: {
     padding: 16,
     gap: 14,
@@ -1553,7 +1512,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#A1A1AA',
   },
-  // Meeting
   meetingCard: {
     padding: 16,
     gap: 12,
@@ -1588,7 +1546,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
   },
-  // Delivery
   deliveryCard: {
     padding: 16,
     gap: 12,
@@ -1649,7 +1606,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#737373',
   },
-  // Smart home
   homeCard: {
     padding: 16,
     gap: 12,
@@ -1733,7 +1689,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#525252',
   },
-  // Typing indicator
   typingCard: {
     padding: 16,
     flexDirection: 'row',
@@ -1758,7 +1713,6 @@ const styles = StyleSheet.create({
     gap: 4,
     marginTop: 4,
   },
-  // AirDrop
   airdropCard: {
     padding: 16,
     gap: 12,
@@ -1785,7 +1739,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
   },
-  // Weather
   weatherCard: {
     backgroundColor: '#1E3A8A',
     borderRadius: 10,
@@ -1828,7 +1781,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#DBEAFE',
   },
-  // Coupon
   couponCard: {
     padding: 16,
     gap: 12,
@@ -1883,7 +1835,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#A1A1AA',
   },
-  // Command pill
   commandPill: {
     flexDirection: 'row',
     alignItems: 'center',

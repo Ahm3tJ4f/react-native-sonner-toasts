@@ -10,9 +10,6 @@ import {
 import { Toaster, toast } from '../index';
 import { toastStore } from '../store';
 
-// The store is a module singleton; keep it clean between tests. The
-// toast enter/exit animations animate opacity, so queries must include
-// hidden elements (opacity 0) to find toasts during the animation.
 const findToast = (text: string) =>
   screen.findByText(text, { includeHiddenElements: true });
 const queryToast = (text: string) =>

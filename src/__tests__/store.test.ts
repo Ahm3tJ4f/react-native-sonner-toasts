@@ -202,7 +202,6 @@ describe('Store', () => {
 
       toastStore.resumeTimer(id);
       jest.advanceTimersByTime(5000);
-      // Still gone, and no crash.
       expect(
         toastStore.getSnapshot().toasts.find((t) => t.id === id)
       ).toBeUndefined();
@@ -246,8 +245,6 @@ describe('Store', () => {
       jest.useRealTimers();
     });
 
-    // handlePromise chains several awaited helpers internally, so a single
-    // microtask flush is not enough. A macrotask runs after all of them.
     const flush = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
 
     it('swaps to the success message when the promise resolves', async () => {
@@ -441,8 +438,6 @@ describe('Store', () => {
     });
 
     it('revives a dismissed toast when the promise resolves in time', async () => {
-      // dismissToast keeps the toast around for the unmount delay. If the
-      // promise settles inside that window, the update path revives it.
       const promise = new Promise<void>((resolve) => {
         setTimeout(() => resolve(), 50);
       });
