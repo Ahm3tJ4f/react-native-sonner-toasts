@@ -1,6 +1,6 @@
 # react-native-sonner-toasts
 
-Sonner-inspired zero-dependency toast library for React Native applications.
+A lightweight, Sonner-inspired, zero-dependency toast library for React Native applications.
 
 ## Installation
 
