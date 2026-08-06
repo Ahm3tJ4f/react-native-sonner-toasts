@@ -1,6 +1,6 @@
 # react-native-sonner-toasts
 
-A lightweight (13.7kb), Sonner-inspired, zero-dependency toast library for React Native applications.
+A Sonner port for React Native. Zero dependencies, lightweight (13.7kb), with the exact feel of Sonner from the web.
 
 ## Installation
 
