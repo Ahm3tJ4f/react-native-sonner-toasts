@@ -88,3 +88,6 @@ nitrogen/
 
 # Expo export output
 example/dist/
+
+# agent skill lock files
+skills-lock.json
