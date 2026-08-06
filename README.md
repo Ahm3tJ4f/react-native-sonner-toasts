@@ -49,12 +49,12 @@ Render this once near the root of your app.
 | `position` | `'top' \| 'bottom'` | `'bottom'` | Where toasts appear. |
 | `visibleToasts` | `number` | `3` | How many toasts are visible at once. |
 | `gap` | `number` | `12` | Gap between stacked toasts. |
-| `offset` | `number` | `40` or `safeAreaInsets + 8` | Distance from the top or bottom edge. |
+| `offset` | `number` | `40` or `inset + 8` | Distance from the top or bottom edge. |
 | `theme` | `'light' \| 'dark' \| 'system'` | `'light'` | Color theme. |
 | `duration` | `number` | `3000` | Default duration for auto-closing toasts. Use `Infinity` to keep a toast on screen forever. |
 | `expand` | `boolean` | `false` | Toasts start expanded. While expanded, auto-close timers pause. Tapping a toast toggles the expanded state. |
 | `closeButton` | `boolean` | `false` | Show a close button on every toast. |
-| `safeAreaInsets` | `{ top: number; bottom: number }` | | Override safe area values when used with `position`. |
+
 
 ### `toast(message, options?)`
 

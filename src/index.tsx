@@ -1,4 +1,5 @@
 import { useEffect, useRef, useSyncExternalStore, type ReactNode } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   ActivityIndicator,
   Animated,
@@ -407,6 +408,7 @@ function Toaster({
   expand = false,
   swipeToDismissDirection = 'left',
 }: ToasterProps) {
+  const insets = useSafeAreaInsets();
   const systemScheme = useColorScheme();
   const resolvedTheme =
     theme === 'system' ? (systemScheme === 'dark' ? 'dark' : 'light') : theme;
@@ -424,7 +426,8 @@ function Toaster({
 
   const resolvedOffset = (() => {
     if (offset !== undefined) return offset;
-    return 40;
+    const inset = position === 'top' ? insets.top : insets.bottom;
+    return inset > 0 ? inset + 8 : 40;
   })();
 
   const containerStyle = {
