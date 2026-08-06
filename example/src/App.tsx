@@ -48,11 +48,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import {
-  SafeAreaProvider,
-  SafeAreaView,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { toast, Toaster } from 'react-native-sonner-toasts';
 
 const GREEN = '#16A34A';
@@ -1077,7 +1073,6 @@ export default function App() {
 }
 
 function AppScreen() {
-  const insets = useSafeAreaInsets();
   return (
     <SafeAreaView
       edges={['top', 'bottom']}
@@ -1137,7 +1132,7 @@ function AppScreen() {
         />
         <Button label="Command copied (pill)" onPress={showCommandPill} />
       </ScrollView>
-      <Toaster safeAreaInsets={insets} />
+      <Toaster />
     </SafeAreaView>
   );
 }

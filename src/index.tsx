@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useSyncExternalStore,
-  type MutableRefObject,
-  type ReactNode,
-} from 'react';
+import { useEffect, useRef, useSyncExternalStore, type ReactNode } from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -28,13 +22,12 @@ import {
   type PromiseToastResult,
   toast as toastApi,
 } from './store';
-import { ToastSwipeHandler, type SwipeDirection } from './gestures';
+import { ToastSwipeHandler } from './gestures';
+import type { SwipeDirection } from './gestures';
+import type { ToasterProps, ToastPosition, ToastTheme } from './types';
 
 const STACK_SCALE_STEP = 0.05;
 const ESTIMATED_TOAST_HEIGHT = 50;
-
-export type ToastPosition = 'top-center' | 'bottom-center';
-export type ToastTheme = 'light' | 'dark' | 'system';
 
 const themeColors = {
   light: {
@@ -52,19 +45,6 @@ const themeColors = {
     closeButton: '#8E8E93',
   },
 } as const;
-
-export interface ToasterProps {
-  closeButton?: boolean;
-  position?: ToastPosition;
-  visibleToasts?: number;
-  gap?: number;
-  offset?: number;
-  theme?: ToastTheme;
-  duration?: number;
-  expand?: boolean;
-  swipeToDismissDirection?: SwipeDirection;
-  safeAreaInsets?: { top: number; bottom: number };
-}
 
 const computeTarget = ({
   index,
@@ -126,12 +106,9 @@ const computeTarget = ({
   };
 };
 
-function useAnimatedValue(initial: number): MutableRefObject<Animated.Value> {
-  const ref = useRef<Animated.Value | null>(null);
-  if (ref.current === null) {
-    ref.current = new Animated.Value(initial);
-  }
-  return ref as MutableRefObject<Animated.Value>;
+function useAnimatedValue(initial: number) {
+  const ref = useRef(new Animated.Value(initial));
+  return ref;
 }
 
 function ToastItem({
@@ -164,7 +141,7 @@ function ToastItem({
       ? closeButtonSetting
       : null;
 
-  const direction = position === 'top-center' ? 1 : -1;
+  const direction = position === 'top' ? 1 : -1;
 
   const translateY = useAnimatedValue(direction * target.offset);
   const height = useAnimatedValue(target.height);
@@ -301,7 +278,7 @@ function ToastItem({
     left: 0,
     right: 0,
     position: 'absolute' as const,
-    ...(position === 'top-center' ? { top: 0 } : { bottom: 0 }),
+    ...(position === 'top' ? { top: 0 } : { bottom: 0 }),
   };
 
   return (
@@ -421,7 +398,7 @@ function ToastItem({
 
 function Toaster({
   closeButton = false,
-  position = 'bottom-center',
+  position = 'bottom',
   visibleToasts = 3,
   gap = 12,
   offset,
@@ -429,7 +406,6 @@ function Toaster({
   duration,
   expand = false,
   swipeToDismissDirection = 'left',
-  safeAreaInsets,
 }: ToasterProps) {
   const systemScheme = useColorScheme();
   const resolvedTheme =
@@ -448,18 +424,14 @@ function Toaster({
 
   const resolvedOffset = (() => {
     if (offset !== undefined) return offset;
-    const inset =
-      position === 'top-center'
-        ? (safeAreaInsets?.top ?? 0)
-        : (safeAreaInsets?.bottom ?? 0);
-    return inset > 0 ? inset + 8 : 40;
+    return 40;
   })();
 
   const containerStyle = {
     position: 'absolute' as const,
     left: 16,
     right: 16,
-    ...(position === 'top-center'
+    ...(position === 'top'
       ? { top: resolvedOffset }
       : { bottom: resolvedOffset }),
   };
@@ -470,11 +442,6 @@ function Toaster({
       toastStore.getSnapshot,
       toastStore.getSnapshot
     );
-
-  // Android: while a swipe gesture is active, flip the overlay from
-  // box-none to auto via setNativeProps. The overlay then consumes the
-  // native touch stream, so the sibling ScrollView never receives the
-  // events and cannot intercept the gesture at the native level.
 
   const overlayRef = useRef<any>(null);
 
@@ -624,4 +591,7 @@ export {
   type PromiseToastOptions,
   type ExtendedPromiseToastMessage,
   type PromiseToastResult,
+  type ToastPosition,
+  type ToastTheme,
+  type ToasterProps,
 };

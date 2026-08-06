@@ -46,7 +46,7 @@ Render this once near the root of your app.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `position` | `'top-center' \| 'bottom-center'` | `'bottom-center'` | Where toasts appear. |
+| `position` | `'top' \| 'bottom'` | `'bottom'` | Where toasts appear. |
 | `visibleToasts` | `number` | `3` | How many toasts are visible at once. |
 | `gap` | `number` | `12` | Gap between stacked toasts. |
 | `offset` | `number` | `40` or `safeAreaInsets + 8` | Distance from the top or bottom edge. |

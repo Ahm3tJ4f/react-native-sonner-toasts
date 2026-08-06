@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import {
   Animated,
   Dimensions,
@@ -8,33 +8,14 @@ import {
   StyleSheet,
   type GestureResponderEvent,
   type PanResponderGestureState,
-  type ViewStyle,
 } from 'react-native';
+import type { ToastSwipeHandlerProps } from './types';
+
+export type { SwipeDirection } from './types';
 
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window');
 
-export type SwipeDirection = 'left' | 'up';
-
-interface ToastSwipeHandlerProps {
-  children: React.ReactNode;
-  onDismiss: () => void;
-  onBegin?: () => void;
-  onFinalize?: () => void;
-  onCancel?: () => void;
-  enabled?: boolean;
-  direction?: SwipeDirection;
-  style?: ViewStyle;
-}
-
-/**
- * Minimum primary-axis movement (in px) before the toast starts tracking
- * the gesture. Below this the toast does not move, so taps stay taps.
- */
 const DEAD_ZONE = 8;
-
-/**
- * Movement (in px) past which releasing the finger dismisses the toast.
- */
 const HORIZONTAL_DISMISS_THRESHOLD = 40;
 const VERTICAL_DISMISS_THRESHOLD = 16;
 
@@ -72,9 +53,6 @@ export function ToastSwipeHandler({
 
   const panResponder = useRef(
     PanResponder.create({
-      // Claim only on movement, never on touch start. Taps therefore
-      // stay with the Pressable (expand toggle), and vertical scrolls
-      // on iOS never get claimed.
       onMoveShouldSetPanResponder: (
         _: GestureResponderEvent,
         gs: PanResponderGestureState
@@ -82,17 +60,9 @@ export function ToastSwipeHandler({
         if (!enabledRef.current) return false;
 
         if (Platform.OS === 'android') {
-          // Android's native ScrollView intercepts on ANY vertical drift
-          // past the touch slop, regardless of the swipe direction. So
-          // claim every movement. Once granted, the default
-          // onShouldBlockNativeResponder (true) triggers
-          // requestDisallowInterceptTouchEvent, which stops the
-          // ScrollView from activating.
           return Math.abs(gs.dx) > DEAD_ZONE || Math.abs(gs.dy) > DEAD_ZONE;
         }
 
-        // iOS UIScrollView has directional lock: claim only when the
-        // primary axis clearly dominates, so scrolling still works.
         const value = directionRef.current === 'left' ? gs.dx : gs.dy;
         const cross = directionRef.current === 'left' ? gs.dy : gs.dx;
         return (
@@ -100,8 +70,6 @@ export function ToastSwipeHandler({
         );
       },
 
-      // Once we own the gesture, refuse to hand it back to a parent
-      // ScrollView. On Android this is what keeps the swipe alive.
       onPanResponderTerminationRequest: () => false,
 
       onPanResponderGrant: () => {
@@ -120,8 +88,6 @@ export function ToastSwipeHandler({
         }
 
         if (isSwiping.current) {
-          // Track the primary axis only. Cross-axis movement is ignored
-          // so the toast moves purely horizontally (or vertically).
           translateAnim.setValue(value);
         }
       },
@@ -131,7 +97,6 @@ export function ToastSwipeHandler({
         gs: PanResponderGestureState
       ) => {
         if (!isSwiping.current) {
-          // Claimed but never crossed the dead zone: treat as a tap.
           onFinalizeRef.current?.();
           return;
         }
@@ -147,8 +112,6 @@ export function ToastSwipeHandler({
 
         if (Math.abs(value) < threshold) {
           onCancelRef.current?.();
-          // Not past the dismiss point: bounce back to the start,
-          // matching sonner-native's elastic snap-back.
           Animated.timing(translateAnim, {
             toValue: 0,
             duration: 300,
@@ -177,8 +140,6 @@ export function ToastSwipeHandler({
         });
       },
 
-      // The native side (e.g. an Android ScrollView) took the gesture.
-      // We cannot prevent that in JS; snap the toast back.
       onPanResponderTerminate: () => {
         isSwiping.current = false;
         onFinalizeRef.current?.();
@@ -193,9 +154,6 @@ export function ToastSwipeHandler({
     })
   ).current;
 
-  // Fade the toast out as it moves, reaching opacity 0 at the screen
-  // edge. The fly-out animation animates the translate to the edge, so
-  // the opacity goes to 0 during the flight.
   const animatedStyle = {
     transform: [
       direction === 'left'
