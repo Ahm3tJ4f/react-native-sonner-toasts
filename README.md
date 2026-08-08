@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-native-sonner-toasts)](https://www.npmjs.com/package/react-native-sonner-toasts)
 [![license](https://img.shields.io/npm/l/react-native-sonner-toasts)](https://github.com/Ahm3tJ4f/react-native-sonner-toasts/blob/main/LICENSE)
 
-A Sonner port for React Native. Zero dependencies, lightweight (13.7kb), with the exact feel of Sonner from the web.
+A Sonner port for React Native. Lightweight (13.7kb), with the exact feel of Sonner from the web.
 
 ## Installation
 
