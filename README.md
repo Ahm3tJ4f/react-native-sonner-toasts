@@ -3,6 +3,9 @@
 [![npm version](https://img.shields.io/npm/v/react-native-sonner-toasts)](https://www.npmjs.com/package/react-native-sonner-toasts)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-sonner-toasts)](https://www.npmjs.com/package/react-native-sonner-toasts)
 [![license](https://img.shields.io/npm/l/react-native-sonner-toasts)](https://github.com/Ahm3tJ4f/react-native-sonner-toasts/blob/main/LICENSE)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/react-native-sonner-toasts)](https://bundlephobia.com/package/react-native-sonner-toasts)
+[![tree shaking](https://badgen.net/bundlephobia/tree-shaking/react-native-sonner-toasts)](https://bundlephobia.com/package/react-native-sonner-toasts)
+[![GitHub stars](https://img.shields.io/github/stars/Ahm3tJ4f/react-native-sonner-toasts)](https://github.com/Ahm3tJ4f/react-native-sonner-toasts/stargazers)
 
 A Sonner port for React Native. Lightweight (13.7kb), zero runtime dependencies, with the exact feel of Sonner toasts.
 
