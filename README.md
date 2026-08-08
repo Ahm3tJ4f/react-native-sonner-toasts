@@ -1,4 +1,4 @@
-# react-native-sonner-toasts
+# React Native Sonner
 
 [![npm version](https://img.shields.io/npm/v/react-native-sonner-toasts)](https://www.npmjs.com/package/react-native-sonner-toasts)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-sonner-toasts)](https://www.npmjs.com/package/react-native-sonner-toasts)
