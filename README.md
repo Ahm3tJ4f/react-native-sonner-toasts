@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-native-sonner-toasts)](https://www.npmjs.com/package/react-native-sonner-toasts)
 [![license](https://img.shields.io/npm/l/react-native-sonner-toasts)](https://github.com/Ahm3tJ4f/react-native-sonner-toasts/blob/main/LICENSE)
 
-A Sonner port for React Native. Lightweight (13.7kb) with the exact feel of Sonner toasts.
+A Sonner port for React Native. Lightweight (13.7kb), zero runtime dependencies, with the exact feel of Sonner toasts.
 
 ## Installation
 
@@ -48,17 +48,16 @@ function YourApp() {
 
 Render this once near the root of your app.
 
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `position` | `'top' \| 'bottom'` | `'bottom'` | Where toasts appear. |
-| `visibleToasts` | `number` | `3` | How many toasts are visible at once. |
-| `gap` | `number` | `12` | Gap between stacked toasts. |
-| `offset` | `number` | `40` or `inset + 8` | Distance from the top or bottom edge. |
-| `theme` | `'light' \| 'dark' \| 'system'` | `'light'` | Color theme. |
-| `duration` | `number` | `3000` | Default duration for auto-closing toasts. Use `Infinity` to keep a toast on screen forever. |
-| `expand` | `boolean` | `false` | Toasts start expanded. While expanded, auto-close timers pause. Tapping a toast toggles the expanded state. |
-| `closeButton` | `boolean` | `false` | Show a close button on every toast. |
-
+| Prop            | Type                            | Default             | Description                                                                                                 |
+| --------------- | ------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `position`      | `'top' \| 'bottom'`             | `'bottom'`          | Where toasts appear.                                                                                        |
+| `visibleToasts` | `number`                        | `3`                 | How many toasts are visible at once.                                                                        |
+| `gap`           | `number`                        | `12`                | Gap between stacked toasts.                                                                                 |
+| `offset`        | `number`                        | `40` or `inset + 8` | Distance from the top or bottom edge.                                                                       |
+| `theme`         | `'light' \| 'dark' \| 'system'` | `'light'`           | Color theme.                                                                                                |
+| `duration`      | `number`                        | `3000`              | Default duration for auto-closing toasts. Use `Infinity` to keep a toast on screen forever.                 |
+| `expand`        | `boolean`                       | `false`             | Toasts start expanded. While expanded, auto-close timers pause. Tapping a toast toggles the expanded state. |
+| `closeButton`   | `boolean`                       | `false`             | Show a close button on every toast.                                                                         |
 
 ### `toast(message, options?)`
 
@@ -104,14 +103,11 @@ toast.promise(
 You can also use functions for dynamic messages.
 
 ```tsx
-toast.promise(
-  fetch('/api/user'),
-  {
-    loading: 'Loading user...',
-    success: (data) => `Hello, ${data.name}!`,
-    error: 'Failed to load user.',
-  }
-);
+toast.promise(fetch('/api/user'), {
+  loading: 'Loading user...',
+  success: (data) => `Hello, ${data.name}!`,
+  error: 'Failed to load user.',
+});
 ```
 
 A function `description` is resolved for each state with the same data as the message.
