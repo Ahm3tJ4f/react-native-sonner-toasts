@@ -135,8 +135,6 @@ toast.promise(saveData(), {
 });
 ```
 
-If `success` is missing and the promise resolves, the toast dismisses. If `error` is missing and the promise rejects, the toast dismisses. A non-ok HTTP response (for example a `fetch` result with status 500) is treated as an error.
-
 The returned object contains the toast id and an `unwrap` function to access the original promise.
 
 ```tsx
