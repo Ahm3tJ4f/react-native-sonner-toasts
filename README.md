@@ -169,18 +169,6 @@ toast('Hello', {
 
 Available style keys: `toastContainer`, `toast`, `toastContent`, `textContainer`, `title`, `description`, `closeButton`, `closeButtonIcon`.
 
-Toasts render their shadow with the cross-platform `boxShadow` style (React Native 0.76+). It looks the same on iOS and Android, and you position it explicitly.
-
-```tsx
-toast('Hello', {
-  styles: {
-    toast: { boxShadow: '0 4px 12px rgba(0,0,0,0.1)' },
-  },
-});
-```
-
-On older React Native versions, `boxShadow` is ignored and `elevation` plus the iOS `shadow*` props are used instead.
-
 ## Contributing
 
 - [Development workflow](CONTRIBUTING.md#development-workflow)
