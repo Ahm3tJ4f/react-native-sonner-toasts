@@ -1,7 +1,7 @@
 {
   "name": "react-native-sonner-toasts",
   "version": "0.2.0",
-  "description": "A Sonner port for React Native. Zero dependencies, lightweight (13.7kb), with the exact feel of Sonner from the web.",
+  "description": "A Sonner port for React Native. Lightweight (13.7kb), with the exact feel of Sonner from the web.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
